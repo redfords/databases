@@ -20,10 +20,10 @@ grades b on a.marks between b.min_mark and b.max_mark
 where grade < 8
 order by grade desc, name, marks
 
-SELECT IF(g.Grade<8, NULL, s.Name), g.Grade, s.Marks
-FROM Students AS s
-JOIN Grades AS g ON s.Marks BETWEEN g.Min_Mark AND g.Max_Mark
-ORDER BY g.Grade DESC, s.Name, s.Marks
+select if(g.Grade<8, NULL, s.Name), g.Grade, s.Marks
+from Students s
+join Grades g on s.Marks between g.Min_Mark and g.Max_Mark
+order by g.Grade desc, s.Name, s.Marks
 
 /* Top Competitors
 Julia just finished conducting a coding contest, and she needs your help assembling the leaderboard!
