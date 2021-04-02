@@ -49,3 +49,21 @@ buy each non-evil wand of high power and age. Write a query to print the id, age
 power of the wands that Ron's interested in, sorted in order of descending power. If more than one wand
 has same power, sort the result in order of descending age.*/
 
+
+
+/* Challenges
+Julia asked her students to create some coding challenges. Write a query to print the hacker_id, name,
+and the total number of challenges created by each student. Sort your results by the total number of
+challenges in descending order. If more than one student created the same number of challenges, then
+sort the result by hacker_id. If more than one student created the same number of challenges and the
+count is less than the maximum number of challenges created, then exclude those students. */
+
+
+
+/* Contest Leaderboard
+You did such a great job helping Julia with her last coding contest challenge that she wants you to work
+on this one, too! The total score of a hacker is the sum of their maximum scores for all of the
+challenges. Write a query to print the hacker_id, name, and total score of the hackers ordered by the
+descending score. If more than one hacker achieved the same total score, then sort the result by
+ascending hacker_id. Exclude all hackers with a total score of  from your result. */
+
