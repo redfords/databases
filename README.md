@@ -1,6 +1,6 @@
 # Databases
 
-HackerRank and LeetCode practice on databases, SQL, NoSQL, XML, MapReduce, database normalization.
+HackerRank and LeetCode practice on databases, SQL, XML, database normalization.
 
 ## Resources
 
