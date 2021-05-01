@@ -10,6 +10,7 @@ columns.
 
 What are the values of X, Y, Z? Enter these integers, each on a new line, in the text-box below.
 
+Answer:
 3
 5
 2
@@ -21,6 +22,7 @@ or 3NF). One of the tables contains, among other fields, a column for the City a
 Code. Assuming that there is a many-to-one mapping between the set of Zip Code(s) and City, we may
 conclude that the database is definitely NOT in xNF form. What is the integer x (1, 2, or 3)?
 
+Answer:
 3
 */
 
@@ -32,5 +34,59 @@ simultaneously while a subject is studied by several students. We need to captur
 relationship in our database. From the above information, what is the minimum number of tables required
 to structure this database in accordance with the rules of 2NF normalization?
 
+Answer:
 3
+*/
+
+/*
+Let us take the example of a simple movie library. Each movie has a description, director, and serial
+number. Customers have a name, address, and membership number. Assume only one copy of each movie exists
+in the library. We are given the following relations and determinants.
+
+Relations (The key is CAPITALIZED):
+customer(name,addr,MEMBERNO)
+movie(DESCRIPTION,director,serialno)
+borrow(memberno,DATE,SERIALNO)
+
+Determinants:
+description->director,serialno
+serialno->description
+serialno->director
+name,addr -> memberno
+memberno -> name,addr
+serialno,date -> memberno
+
+The above relation is in x**NF form where x may take the following values {1,2,3,3.5} corresponding to
+{1NF, 2NF, 3NF and BCNF} respectively.
+What is the maximum possible value of **x such that the above relation satisfies the *x*NF form?
+
+Answer:
+3
+*/
+
+/*
+The following table stores rows of information about pizza deliveries. The three columns correspond to
+the Restaurant name, Crust, Delivery Area. We convert this table into Fourth Normal Form and so we end
+up creating two tables, each with two columns and N rows. (Both the new tables have an equal number of
+rows)
+
+Restaurant  Crust       Delivery Area
+-------------------------------------------
+X Pizza     Thick       Whitefield
+X Pizza     Thick       Greenville
+X Pizza     Thick       Capital
+X Pizza     Stuffed     Whitefield
+X Pizza     Stuffed     Greenville
+X Pizza     Stuffed     Capital
+Papa Pizza  Thin        Capital
+Papa Pizza  Stuffed     Capital
+F1 Pizza    Thick       Whitefield
+F1 Pizza    Thick       Greenville
+F1 Pizza    Thin        Whitefield
+F1 Pizza    Thin        Greenville
+
+In the text box below, enter the value of the integer N.
+
+Answer:
+6
 */
