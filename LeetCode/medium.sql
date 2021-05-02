@@ -69,3 +69,15 @@ above tables, your SQL query should return the following rows (order of rows doe
 +------------+----------+--------+
 */
 
+with dept_salary as (
+    select department.name as department, employee.name as employee, salary,
+           dense_rank() over(partition by department.name order by salary desc) as rownum
+        from employee
+        inner join
+        department on
+        employee.departmentid = department.id
+)
+select department, employee, salary
+    from dept_salary
+    where rownum = 1;
+    
