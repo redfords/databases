@@ -80,4 +80,13 @@ with dept_salary as (
 select department, employee, salary
     from dept_salary
     where rownum = 1;
-    
+
+select department, employee, salary
+from (
+    select department.name as department, employee.name as employee, salary,
+        dense_rank() over(partition by department.name order by salary desc) as rownum
+    from employee
+    inner join
+    department on
+    employee.departmentid = department.id) dept_salary
+where rownum = 1
