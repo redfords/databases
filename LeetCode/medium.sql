@@ -90,3 +90,89 @@ from (
     department on
     employee.departmentid = department.id) dept_salary
 where rownum = 1
+
+/* Nth Highest Salary
+Write a SQL query to get the nth highest salary from the Employee table.
+
++----+--------+
+| Id | Salary |
++----+--------+
+| 1  | 100    |
+| 2  | 200    |
+| 3  | 300    |
++----+--------+
+
+For example, given the above Employee table, the nth highest salary where n = 2 is 200. If there is no
+nth highest salary, then the query should return null.
++------------------------+
+| getNthHighestSalary(2) |
++------------------------+
+| 200                    |
++------------------------+
+*/
+
+/*  Rank Scores
+Write a SQL query to rank scores. If there is a tie between two scores, both should have the same
+ranking. Note that after a tie, the next ranking number should be the next consecutive integer value.
+In other words, there should be no "holes" between ranks.
+
++----+-------+
+| Id | Score |
++----+-------+
+| 1  | 3.50  |
+| 2  | 3.65  |
+| 3  | 4.00  |
+| 4  | 3.85  |
+| 5  | 4.00  |
+| 6  | 3.65  |
++----+-------+
+
+For example, given the above Scores table, your query should generate the following report (order by
+highest score):
++-------+---------+
+| score | Rank    |
++-------+---------+
+| 4.00  | 1       |
+| 4.00  | 1       |
+| 3.85  | 2       |
+| 3.65  | 3       |
+| 3.65  | 3       |
+| 3.50  | 4       |
++-------+---------+
+*/
+
+/* Consecutive Numbers
+Write an SQL query to find all numbers that appear at least three times consecutively. Return the
+result table in any order.
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| id          | int     |
+| num         | varchar |
++-------------+---------+
+ 
+The query result format is in the following example:
+
+Logs table:
++----+-----+
+| Id | Num |
++----+-----+
+| 1  | 1   |
+| 2  | 1   |
+| 3  | 1   |
+| 4  | 2   |
+| 5  | 1   |
+| 6  | 2   |
+| 7  | 2   |
++----+-----+
+
+Result table:
++-----------------+
+| ConsecutiveNums |
++-----------------+
+| 1               |
++-----------------+
+
+1 is the only number that appears consecutively for at least three times.
+*/
