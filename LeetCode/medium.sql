@@ -150,7 +150,9 @@ highest score):
 +-------+---------+
 */
 
-
+select score,
+dense_rank() over (order by score desc) as ranking
+from score
 
 /* Consecutive Numbers
 Write an SQL query to find all numbers that appear at least three times consecutively. Return the
@@ -187,3 +189,10 @@ Result table:
 
 1 is the only number that appears consecutively for at least three times.
 */
+
+select distinct 11.Num as ConsecutiveNums from
+Logs as 11, Logs as 12, Logs as 13
+where 11.Num = 12.Num
+and 12.Num = 13.Num
+and 11.Id = 12.Id - 1
+and 12.Id = 13.Id - 1
