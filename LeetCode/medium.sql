@@ -111,6 +111,15 @@ nth highest salary, then the query should return null.
 +------------------------+
 */
 
+create function getNthHighestSalary(n int) returns int
+begin
+    set n = n - 1
+    return (
+        select distinct Salary from Employee order by Salary desc limit 1 offset n
+    );
+end
+
+
 /*  Rank Scores
 Write a SQL query to rank scores. If there is a tie between two scores, both should have the same
 ranking. Note that after a tie, the next ranking number should be the next consecutive integer value.
@@ -140,6 +149,8 @@ highest score):
 | 3.50  | 4       |
 +-------+---------+
 */
+
+
 
 /* Consecutive Numbers
 Write an SQL query to find all numbers that appear at least three times consecutively. Return the
