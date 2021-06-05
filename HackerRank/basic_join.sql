@@ -102,3 +102,26 @@ on h.hacker_id = m.hacker_id
 group by m.hacker_id, h.name
 having total_score > 0
 order by total_score desc, h.hacker_id
+
+/*
+Cities With More Customers Than Average
+Write a query which returns all cities with more customers than the average number of customers of all
+cities. For each such city, return the country name, the city name and the number of customers. Order
+the result by country name ascending.
+*/
+
+select country_name, city_name, count(customer.id)
+from country
+inner join city
+on country.id = city.country_id
+inner join customer
+on customer.city_id = city.id
+group by city_name, country_name
+having count(customer.id) > (
+    select avg(cust)
+    from (
+        select count(customer.id) as cust
+        from city
+        inner join customer
+        on customer.city_id = city.id
+        group by city_id) t_cust)
