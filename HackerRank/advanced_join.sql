@@ -8,6 +8,16 @@ Write a query to output the start and end dates of projects listed by the number
 complete the project in ascending order. If there is more than one project that have the same number
 of completion days, then order by the start date of the project.*/
 
+select Start_Date, min(End_Date)
+from
+(select Start_Date from Projects where Start_Date not in
+    (select End_Date from Projects)) as s,
+(select End_Date from Projects where End_Date not in
+    (select Start_Date from Projects )) as e
+where Start_Date < End_Date
+group by Start_Date
+order by datediff(min(End_Date), Start_Date), Start_Date
+
 /*
 Sales Data for All Customers and Products
 Write a query that returns sales details of all customers and products. The query should return all
