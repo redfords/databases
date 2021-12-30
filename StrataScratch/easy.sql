@@ -54,5 +54,10 @@ Find the total cost of each customer's orders. Output customer's id, first name,
 Order records by customer's first name alphabetically.
 */
 
-/**/
 
+
+/*
+Number Of Bathrooms And Bedrooms
+Find the average number of bathrooms and bedrooms for each city’s property types. Output the result along
+with the city name and the property type.
+*/
