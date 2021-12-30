@@ -38,7 +38,13 @@ You may have duplicate rows in your results due to a customer ordering several o
 records based on the customer's first name and the order details in ascending order.
 */
 
-/**/
+
+
+/*
+Average Salaries
+Compare each employee's salary with the average salary of the corresponding department.
+Output the department, first name, and salary of employees along with the average salary of that department.
+*/
 
 /**/
 
