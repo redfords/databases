@@ -25,3 +25,10 @@ event_date  no_of_users_same_day_purchase
 2022-01-04  1
 */
 
+/*
+Question 4: percentage of paid users in India, USA and any other country tagged as Other.
+country  percentage_users
+India    40
+USA      20
+Other    40
+*/
