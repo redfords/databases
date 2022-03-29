@@ -16,5 +16,12 @@ week_number  total_active_users
 2            5
 */
 
-
+/*
+Question 3: date wise total number of users who made the purchase same day they installed the app
+event_date  no_of_users_same_day_purchase
+2022-01-01  0
+2022-01-02  0
+2022-01-03  2
+2022-01-04  1
+*/
 
