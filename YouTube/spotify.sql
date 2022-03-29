@@ -32,3 +32,12 @@ India    40
 USA      20
 Other    40
 */
+
+/*
+Question 5: Among all the users who installed the app on a given day, how many made a purchase the next day
+event_day   cnt_users
+2022-01-01  0
+2022-01-02  1
+2022-01-03  0
+2022-01-04  0
+*/
