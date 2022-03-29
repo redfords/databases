@@ -8,3 +8,13 @@ event_date  total_active_users
 2022-01-03  3
 2022-01-04  1
 */
+
+/*
+Question 2: find total active users each week
+week_number  total_active_users
+1            3
+2            5
+*/
+
+
+
