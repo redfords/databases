@@ -21,7 +21,8 @@ with max_salary as (
   department_id,
   salary,
   rank () over (partition by id order by salary desc) as rank
-  from ms_employee_salary )
+  from ms_employee_salary
+  )
 select
 id,
 first_name,
@@ -59,4 +60,33 @@ employeename,
 basepay
 from sf_public_salaries
 where jobtitle like '%CAPTAIN%POLICE%';
+
+
+/*
+Find the most profitable company in the financial sector of the entire world along with its continent
+
+Find the most profitable company from the financial sector. Output the result along with the continent.
+
+forbes_global_2010_2014
+company: varchar
+sector: varchar
+industry: varchar
+continent: varchar
+country: varchar
+marketvalue: float
+sales: float
+profits: float
+assets: float
+rank: int
+forbeswebpage: varchar
+
+select
+company,
+continent
+from forbes_global_2010_2014
+where profits = (
+  select max(profits)
+  from forbes_global_2010_2014
+  );
+*/
 
