@@ -11,6 +11,7 @@ first_name: varchar
 last_name: varchar
 salary: int
 department_id: int
+*/
 
 with max_salary as (
   select
@@ -29,6 +30,5 @@ department_id,
 salary
 from max_salary
 where rank = 1
-order by id asc	
-;
-*/
+order by id asc;
+
