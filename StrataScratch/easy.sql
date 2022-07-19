@@ -90,3 +90,30 @@ where profits = (
   from forbes_global_2010_2014
   );
 
+/*
+Number Of Bathrooms And Bedrooms
+
+Find the average number of bathrooms and bedrooms for each city’s property types. Output the result along with the city name and
+the property type.
+
+airbnb_search_details
+id: int
+price: float
+property_type: varchar
+room_type: varchar
+amenities: varchar
+accommodates: int
+bathrooms: int
+city: varchar
+bedrooms: int
+*/
+
+select
+city,
+property_type,
+avg(bathrooms) as n_bathrooms_avg,
+avg(bedrooms) as n_bedrooms_avg
+from airbnb_search_details
+group by
+property_type,
+city;
