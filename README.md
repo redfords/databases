@@ -1,6 +1,6 @@
 # Databases
 
-HackerRank and LeetCode practice on databases, SQL, and data modeling.
+HackerRank and LeetCode practice on databases, SQL and data modeling.
 
 ## Resources
 
