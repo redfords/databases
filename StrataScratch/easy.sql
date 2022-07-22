@@ -238,3 +238,41 @@ yearly_salary
 from lyft_drivers
 where yearly_salary <= 30000 or
 yearly_salary >= 70000;
+
+/*
+Average Salaries
+
+Compare each employee's salary with the average salary of the corresponding department.
+Output the department, first name, and salary of employees along with the average salary of that department.
+
+employee
+id: int
+first_name: varchar
+last_name: varchar
+age: int
+sex: varchar
+employee_title: varchar
+department: varchar
+salary: int
+target: int
+bonus: int
+email: varchar
+city: varchar
+address: varchar
+manager_id: int
+*/
+
+with avgs as (
+  select department,
+  avg(salary) as avg_salary
+  from employee
+  group by department
+  )
+select
+employee.department,
+first_name,
+salary,
+avg_salary
+from employee
+inner join avgs
+on employee.department = avgs.department;
