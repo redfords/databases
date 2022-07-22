@@ -15,20 +15,20 @@ department_id: int
 
 with max_salary as (
   select
+    id,
+    first_name,
+    last_name,
+    department_id,
+    salary,
+    rank () over (partition by id order by salary desc) as rank
+  from ms_employee_salary
+  )
+select
   id,
   first_name,
   last_name,
   department_id,
-  salary,
-  rank () over (partition by id order by salary desc) as rank
-  from ms_employee_salary
-  )
-select
-id,
-first_name,
-last_name,
-department_id,
-salary
+  salary
 from max_salary
 where rank = 1
 order by id asc;
@@ -56,8 +56,8 @@ status: varchar
 */
 
 select
-employeename,
-basepay
+  employeename,
+  basepay
 from sf_public_salaries
 where jobtitle like '%CAPTAIN%POLICE%';
 
@@ -82,8 +82,8 @@ forbeswebpage: varchar
 */
 
 select
-company,
-continent
+  company,
+  continent
 from forbes_global_2010_2014
 where profits = (
   select max(profits)
@@ -109,10 +109,10 @@ bedrooms: int
 */
 
 select
-city,
-property_type,
-avg(bathrooms) as n_bathrooms_avg,
-avg(bedrooms) as n_bedrooms_avg
+  city,
+  property_type,
+  avg(bathrooms) as n_bathrooms_avg,
+  avg(bedrooms) as n_bedrooms_avg
 from airbnb_search_details
 group by
 property_type,
@@ -143,10 +143,10 @@ total_order_cost: int
 */
 
 select
-first_name,
-last_name,
-city,
-order_details
+  first_name,
+  last_name,
+  city,
+  order_details
 from customers
 left join orders
 on customers.id = orders.cust_id
@@ -179,10 +179,10 @@ total_order_cost: int
 */
 
 select
-first_name,
-order_date,
-order_details,
-total_order_cost
+  first_name,
+  order_date,
+  order_details,
+  total_order_cost
 from customers
 inner join orders
 on customers.id = orders.cust_id
@@ -209,8 +209,8 @@ cool: int
 */
 
 select
-business_name,
-review_text
+  business_name,
+  review_text
 from yelp_reviews
 where cool = (
   select max(cool)
@@ -231,10 +231,10 @@ yearly_salary: int
 */
 
 select
-index,
-start_date,
-end_date,
-yearly_salary
+  index,
+  start_date,
+  end_date,
+  yearly_salary
 from lyft_drivers
 where yearly_salary <= 30000 or
 yearly_salary >= 70000;
@@ -263,16 +263,52 @@ manager_id: int
 */
 
 with avgs as (
-  select department,
-  avg(salary) as avg_salary
+  select
+    department,
+    avg(salary) as avg_salary
   from employee
   group by department
   )
 select
-employee.department,
-first_name,
-salary,
-avg_salary
+  employee.department,
+  first_name,
+  salary,
+  avg_salary
 from employee
 inner join avgs
 on employee.department = avgs.department;
+
+/*
+Salaries Differences
+
+Write a query that calculates the difference between the highest salaries found in the marketing and engineering departments.
+Output just the absolute difference in salaries.
+
+db_employee
+id: int
+first_name: varchar
+last_name: varchar
+salary: int
+department_id: int
+email: datetime
+
+db_dept
+id: int
+department: varchar
+*/
+
+with employee_dept as (
+  select
+    department,
+    max(salary) as max_salary
+  from db_employee
+  inner join db_dept
+  on db_employee.department_id = db_dept.id
+  where department = 'marketing' or
+  department = 'engineering'
+  group by department
+  )
+select
+  max(max_salary) -
+  min(max_salary)
+from employee_dept;
