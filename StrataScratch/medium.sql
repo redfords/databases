@@ -57,3 +57,32 @@ select
 from sf_restaurant_health_violations
 where business_name = 'Roxanne Cafe'
 group by year;
+
+/*
+Find the top 10 ranked songs in 2010
+
+What were the top 10 ranked songs in 2010?
+Output the rank, group name, and song name but do not show the same song twice.
+Sort the result based on the year_rank in ascending order.
+
+billboard_top_100_year_end
+id: int
+year: int
+year_rank: int
+group_name: varchar
+artist: varchar
+song_name: varchar
+*/
+
+select
+  year_rank,
+  group_name,
+  song_name
+from billboard_top_100_year_end
+where year = 2010
+group by
+  year_rank,
+  group_name,
+  song_name
+order by year_rank
+limit 10;
