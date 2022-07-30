@@ -169,9 +169,61 @@ total_order_cost: int
 */
 
 select
-cust_id,
-sum(total_order_cost) as revenue
+  cust_id,
+  sum(total_order_cost) as revenue
 from orders
 where to_char(order_date, 'YYYY-MM') = '2019-03'
 group by cust_id
 order by revenue desc;
+
+/*
+Income By Title and Gender
+
+Find the average total compensation based on employee titles and gender. Total compensation is calculated by adding both the
+salary and bonus of each employee. However, not every employee receives a bonus so disregard employees without bonuses in your
+calculation. Employee can receive more than one bonus.
+Output the employee title, gender (i.e., sex), along with the average total compensation.
+
+sf_employee
+id: int
+first_name: varchar
+last_name: varchar
+age: int
+sex: varchar
+employee_title: varchar
+department: varchar
+salary: int
+target: int
+email: varchar
+city: varchar
+address: varchar
+manager_id: int
+
+sf_bonus
+worker_ref_id: int
+bonus: int
+bonus_date: datetime
+*/
+
+with comp as (
+  select
+    employee_title,
+    sex,
+    salary,
+    sum(bonus) as total_bonus
+  from sf_employee
+  inner join sf_bonus
+  on sf_employee.id = sf_bonus.worker_ref_id
+  group by
+    employee_title,
+    sex,
+    salary
+  )
+select
+  employee_title,
+  sex,
+  avg(salary + total_bonus) as avg_compensation
+from comp
+group by
+  employee_title,
+  sex;
