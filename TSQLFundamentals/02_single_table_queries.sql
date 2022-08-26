@@ -4,7 +4,19 @@ Write a query against the Sales.Orders table that returns orders placed in June 
 Tables involved: TSQLV4 database and the Sales.Orders table
 */
 
+select orderid
+from orders
+where to_char(orderdate, 'YYYY-MM') = '2015-06';
 
+select orderid
+from orders
+where date_part('year', orderdate) = '2015' and
+date_part('month', orderdate) = '06';
+
+select orderid
+from orders
+where orderdate >= '2015-06-01' and
+orderdate < '2015-07-01';
 
 /*
 Exercise 2
