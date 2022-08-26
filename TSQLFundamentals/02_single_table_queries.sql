@@ -34,7 +34,9 @@ containing the letter e twice or more:
 Tables involved: TSQLV4 database and the HR.Employees table
 */
 
-
+select empid
+from employees
+where lastime like '%e%e%';
 
 /*
 Exercise 4
