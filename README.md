@@ -1,23 +1,29 @@
 # Databases
 
-HackerRank and LeetCode practice on databases, SQL and data modeling.
+Solutions to exercises on databases, SQL and data modeling.
 
 
-## Use Docker to set up a local database
+## How to set up a local database
 
-1.
+1. Create a volume in Docker:
 ```
-docker volume create test_vol
+docker volume create test_v
 ```
-2.
+
+2. Create and run a PostgreSQL container:
 ```
-docker run --rm --name test_pg -e POSTGRES_PASSWORD=pass -p 5433:5432 -v test_vol:/var/lib/postgresql/data postgres
+docker run -d --name mypostgres -p 5432:5432 -e POSTGRES_PASSWORD=pass \
+-v test_v:/var/lib/postgresql/data postgres
+```
+
+If the port is already in use you can stop it:
+```
+sudo service postgresql stop
 ```
 
 3.
 From another terminal:
 ```
-
 docker exec -it test_pg psql -U postgres
 
 create database test_db;
@@ -32,9 +38,23 @@ insert into plants values
 \dt
 
 \q
+```
 
+4. Stop running the container:
+```
 docker stop test_pg
 ```
+
+To restart the container:
+```
+docker start mypostgres
+```
+
+To execute a .sql script in the container:
+```
+docker exec -i mypostgres postgres -u root -p pass < /scripts/create_table.sql
+```
+
 
 ## Resources
 
