@@ -19,7 +19,7 @@ sudo service postgresql stop
 2. From another terminal:
 ```shell
 # connect to the database
-docker exec -it test_pg psql -U postgres
+docker exec -it mypostgres psql -U postgres
 # run any psql commands you need
 create database test_db;
 \l
