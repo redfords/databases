@@ -33,41 +33,44 @@ group by
     country.continent;
 
 /* The Report
-*/
+https://www.hackerrank.com/challenges/the-report/problem?isFullScreen=true */
 
-select name, grade, marks
-from students a
-inner join
-grades b on a.marks between b.min_mark and b.max_mark
-where grade > 7
-union
-select name = NULL, grade, marks
-from students a
-inner join
-grades b on a.marks between b.min_mark and b.max_mark
-where grade < 8
-order by grade desc, name, marks
-
-select if(g.Grade<8, NULL, s.Name), g.Grade, s.Marks
-from Students s
-join Grades g on s.Marks between g.Min_Mark and g.Max_Mark
-order by g.Grade desc, s.Name, s.Marks
+select
+    if(grade < 8, NULL, name),
+    grade,
+    marks
+from
+    students
+    inner join grades on marks between min_mark and max_mark
+order by
+    grade desc,
+    name,
+    marks
 
 /* Top Competitors
-. */
+https://www.hackerrank.com/challenges/full-score/problem?isFullScreen=true */
 
-select h.hacker_id, h.name
-from submissions s
-join hackers h on s.hacker_id = h.hacker_id
-join challenges c on s.challenge_id = c.challenge_id
-join difficulty d on c.difficulty_level = d.difficulty_level
-where s.score = d.score
-group by h.hacker_id, h.name
-having count(*) > 1
-order by count(*)desc, h.hacker_id
+select
+    h.hacker_id,
+    h.name
+from
+    submissions s
+    inner join hackers h on h.hacker_id = s.hacker_id
+    inner join challenges c on c.challenge_id = s.challenge_id
+    inner join difficulty d on d.difficulty_level = c.difficulty_level
+where
+    s.score = d.score
+group by
+    h.hacker_id,
+    h.name
+having
+    count(*) > 1
+order by
+    count(*) desc,
+    h.hacker_id;
 
 /* Ollivander's Inventory
-*/
+https://www.hackerrank.com/challenges/harry-potter-and-wands/problem?isFullScreen=true */
 
 select id, age, m.coins_needed, m.power
 from
