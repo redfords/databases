@@ -6,7 +6,7 @@ Solutions to exercises on databases, SQL and data modeling.
 ## How to set up a local database
 
 1. In the terminal run the following commands:
-```
+```shell
 # create a docker volume
 docker volume create test_v
 # create and run a postgres container
@@ -17,7 +17,7 @@ sudo service postgresql stop
 ```
 
 2. From another terminal:
-```
+```shell
 # connect to the database
 docker exec -it test_pg psql -U postgres
 # run any psql commands you need
@@ -34,7 +34,7 @@ insert into plants values
 ```
 
 3. Execute the .sql scripts in the container:
-```
+```shell
 docker exec -i mypostgres postgres -u root -p pass < /scripts/create_table.sql
 ```
 
