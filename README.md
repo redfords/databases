@@ -5,52 +5,35 @@ Solutions to exercises on databases, SQL and data modeling.
 
 ## How to set up a local database
 
-1. Create a volume in Docker:
+1. In the terminal run the following commands:
 ```
+# create a docker volume
 docker volume create test_v
-```
-
-2. Create and run a PostgreSQL container:
-```
+# create and run a postgres container
 docker run -d --name mypostgres -p 5432:5432 -e POSTGRES_PASSWORD=pass \
 -v test_v:/var/lib/postgresql/data postgres
-```
-
-If the port is already in use you can stop it:
-```
+# if the port is in use you can stop it
 sudo service postgresql stop
 ```
 
-3.
-From another terminal:
+2. From another terminal:
 ```
+# connect to the database
 docker exec -it test_pg psql -U postgres
-
+# run any psql commands you need
 create database test_db;
 \l
 \c test_db
 create schema test;
-
 create table plants (plant text, color text);
 insert into plants values
     ('roses', 'red'),
     ('tulip', 'red');
 \dt
-
 \q
 ```
 
-4. Stop running the container:
-```
-docker stop test_pg
-```
-
-To restart the container:
-```
-docker start mypostgres
-```
-
-To execute a .sql script in the container:
+3. Execute the .sql scripts in the container:
 ```
 docker exec -i mypostgres postgres -u root -p pass < /scripts/create_table.sql
 ```
