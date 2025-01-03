@@ -71,21 +71,52 @@ order by
 
 /* Ollivander's Inventory
 https://www.hackerrank.com/challenges/harry-potter-and-wands/problem?isFullScreen=true */
+/* Using window function, not supported in HackerRank*/
+select
+    id, age, coins_needed, power
+from (
+    select
+        w.id,    
+        wp.age, 
+        w.coins_needed,
+        w.power,
+        row_number() over(partition by w.code, w.power
+    order by
+        w.coins_needed) as row_num
+    from
+        wands w
+        inner join wands_property wp on w.code = wp.code
+    where
+        wp.is_evil = 0) min_coins
+where
+    row_num = 1
+order by
+    power desc,
+    age desc;
 
-select id, age, m.coins_needed, m.power
-from
-    (select code, power, MIN(coins_needed) AS coins_needed
-    from Wands
-    group by code, power) as m
-join Wands as w
-on m.code = w.code and m.power = w.power and m.coins_needed = w.coins_needed
-join Wands_Property as wp
-on m.code = wp.code
-where wp.is_evil = 0
-order by m.power desc, age desc
+select
+    id, age, m.coins_needed, m.power
+from (
+    select
+        code,
+        power,
+        MIN(coins_needed) AS coins_needed
+    from
+        wands
+    group by
+        code, power) as m
+    join wands as w
+    on m.code = w.code and m.power = w.power and m.coins_needed = w.coins_needed
+    join wands_property as wp
+    on m.code = wp.code
+where
+    wp.is_evil = 0
+order by
+    m.power desc,
+    age desc
 
 /* Challenges
-*/
+https://www.hackerrank.com/challenges/challenges/problem?isFullScreen=true */
 
 select c.hacker_id, h.name, count(c.challenge_id) as challenges_created
 from Hackers h
