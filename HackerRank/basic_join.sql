@@ -72,27 +72,21 @@ order by
 /* Ollivander's Inventory
 https://www.hackerrank.com/challenges/harry-potter-and-wands/problem?isFullScreen=true */
 /* Using window function, not supported in HackerRank*/
-select
-    id, age, coins_needed, power
-from (
-    select
-        w.id,    
-        wp.age, 
+with RankedWands as (
+    SELECT
+        w.id,
+        wp.age,
         w.coins_needed,
         w.power,
-        row_number() over(partition by w.code, w.power
-    order by
-        w.coins_needed) as row_num
-    from
-        wands w
-        inner join wands_property wp on w.code = wp.code
-    where
-        wp.is_evil = 0) min_coins
-where
-    row_num = 1
-order by
-    power desc,
-    age desc;
+        ROW_NUMBER() OVER (PARTITION BY w.power, wp.age ORDER BY w.coins_needed ASC) as rn
+    FROM Wands w
+    JOIN Wands_Property wp ON w.code = wp.code
+    WHERE wp.is_evil = 0
+)
+SELECT id, age, coins_needed, power
+FROM RankedWands
+WHERE rn = 1
+ORDER BY power DESC, age DESC;
 
 select
     id, age, m.coins_needed, m.power
