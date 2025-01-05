@@ -156,21 +156,27 @@ or challenges_created not in
 order by challenges_created desc, c.hacker_id
 
 /* Contest Leaderboard
-*/
+https://www.hackerrank.com/challenges/contest-leaderboard/problem?isFullScreen=true */
 
-select m.hacker_id, h.name, sum(m.score) as total_score
-from (select hacker_id, challenge_id, max(score) as score
-    from Submissions
-    group by hacker_id, challenge_id) as m
-join Hackers h
-on h.hacker_id = m.hacker_id
-group by m.hacker_id, h.name
-having total_score > 0
-order by total_score desc, h.hacker_id
+with max_scores as (
+    select hacker_id, max(score) as max_score, challenge_id
+    from submissions
+    group by hacker_id, challenge_id)
+select
+    ms.hacker_id, h.name, sum(ms.max_score) as total_score
+from
+    max_scores ms
+    inner join hackers h on ms.hacker_id = h.hacker_id
+group by
+    ms.hacker_id, h.name
+having
+    sum(ms.max_score) > 0
+order by
+    sum(ms.max_score) desc, hacker_id
+;
 
 /*
 Cities With More Customers Than Average
-
 */
 
 select country_name, city_name, count(customer.id)
