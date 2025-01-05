@@ -71,7 +71,7 @@ order by
 
 /* Ollivander's Inventory
 https://www.hackerrank.com/challenges/harry-potter-and-wands/problem?isFullScreen=true */
-/* Using window function, not supported in HackerRank*/
+/* MS SQL Server to support window functions*/
 with RankedWands as (
     SELECT
         w.id,
@@ -112,6 +112,25 @@ order by
 /* Challenges
 https://www.hackerrank.com/challenges/challenges/problem?isFullScreen=true */
 
+    with total_ch as (
+select hacker_id, count(challenge_id) as challenges
+from challenges
+group by hacker_id
+    ),
+max_ch as (
+select count(challenge_id)
+    from challenges
+    group by hacker_id
+    order by count(challenge_id)
+    limit 1
+)
+select hacker_id, 
+challenges,
+count(hacker_id) OVER(PARTITION BY challenges) AS total_by_h
+from total_ch
+order by challenges;
+
+    
 select c.hacker_id, h.name, count(c.challenge_id) as challenges_created
 from Hackers h
 join Challenges c
