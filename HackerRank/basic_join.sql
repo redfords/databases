@@ -177,6 +177,9 @@ order by
 
 /*
 Cities With More Customers Than Average
+Write a query which returns all cities with more customers than the average number of customers of all
+cities. For each such city, return the country name, the city name and the number of customers. Order
+the result by country name ascending.
 */
 
 select country_name, city_name, count(customer.id)
