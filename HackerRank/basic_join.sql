@@ -71,6 +71,7 @@ order by
 
 /* Ollivander's Inventory
 https://www.hackerrank.com/challenges/harry-potter-and-wands/problem?isFullScreen=true */
+
 /* MS SQL Server to support window functions*/
 with RankedWands as (
     SELECT
@@ -112,24 +113,29 @@ order by
 /* Challenges
 https://www.hackerrank.com/challenges/challenges/problem?isFullScreen=true */
 
-    with total_ch as (
-select hacker_id, count(challenge_id) as challenges
-from challenges
-group by hacker_id
-    ),
-max_ch as (
-select count(challenge_id)
+/* MS SQL Server to support window functions*/
+with total_ch as (
+    select hacker_id, count(challenge_id) as challenges
     from challenges
     group by hacker_id
-    order by count(challenge_id)
-    limit 1
+    ),
+total_ch_by_h as (
+    select tc.hacker_id, h.name,
+    challenges,
+    count(tc.hacker_id) OVER(PARTITION BY challenges) AS total_by_h
+    from total_ch tc
+    inner join hackers h on h.hacker_id = tc.hacker_id
 )
-select hacker_id, 
-challenges,
-count(hacker_id) OVER(PARTITION BY challenges) AS total_by_h
-from total_ch
-order by challenges;
-
+select hacker_id, name, challenges
+from total_ch_by_h
+where total_by_h = 1
+or (total_by_h > 1 and challenges =
+      (select top 1 count(challenge_id)
+    from challenges
+    group by hacker_id
+    order by count(challenge_id) desc))
+order by challenges desc, hacker_id
+;
     
 select c.hacker_id, h.name, count(c.challenge_id) as challenges_created
 from Hackers h
