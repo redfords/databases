@@ -182,18 +182,23 @@ cities. For each such city, return the country name, the city name and the numbe
 the result by country name ascending.
 */
 
-select country_name, city_name, count(customer.id)
-from country
-inner join city
-on country.id = city.country_id
-inner join customer
-on customer.city_id = city.id
-group by city_name, country_name
-having count(customer.id) > (
+select
+    country_name,
+    city_name,
+    count(customer.id) as n_of_customers
+from
+    country
+    inner join city on country.id = city.country_id
+    inner join customer on customer.city_id = city.id
+group by
+    city_name,
+    country_name
+having
+    count(customer.id) > (
     select avg(cust)
     from (
         select count(customer.id) as cust
         from city
-        inner join customer
-        on customer.city_id = city.id
-        group by city_id) t_cust)
+        inner join customer on customer.city_id = city.id
+        group by city_id) t_cust
+    )
