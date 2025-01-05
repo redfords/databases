@@ -5,8 +5,9 @@ The CountryCode for America is USA. */
 
 select *
 from CITY
-where countrycode = 'USA' and
-population > 100000
+where
+  countrycode = 'USA' and
+  population > 100000
 
 /* Revising the Select Query II
 
@@ -15,8 +16,9 @@ The CountryCode for America is USA. */
 
 select name
 from city
-where countrycode = 'USA' and
-population > 120000
+where
+  countrycode = 'USA' and
+  population > 120000
 
 /* Select All
 Query all columns (attributes) for every row in the CITY table. */
@@ -142,6 +144,7 @@ months. Sort your result by ascending employee_id.
 
 select name
 from employee
-where salary > 2000 and
-months < 10
+where
+  salary > 2000 and
+  months < 10
 order by employee_id
