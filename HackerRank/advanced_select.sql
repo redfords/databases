@@ -26,7 +26,36 @@ order by count(occupation);
 /* New Companies
 https://www.hackerrank.com/challenges/the-company/problem?isFullScreen=true */
 
+select
+   c.company_code,
+   c.founder,
+   count(distinct lm.lead_manager_code) as total_lead_manager,
+   count(distinct sm.senior_manager_code) as total_senior_manager,
+   count(distinct m.manager_code) as total_manager,
+   count(distinct e.employee_code) as total_employee
+from
+   company c
+   inner join lead_manager lm on c.company_code = lm.company_code
+   inner join senior_manager sm on c.company_code = sm.company_code
+   inner join manager m on c.company_code = m.company_code
+   inner join employee e on c.company_code = e.company_code
+group by
+   c.company_code,
+   c.founder
+order by
+   company_code;
 
+select
+   c.company_code,
+   c.founder,
+   (select count(distinct lead_manager_code) from lead_manager where company_code = c.company_code),
+   (select count(distinct senior_manager_code) from senior_manager where company_code = c.company_code),
+   (select count(distinct manager_code) from manager where company_code = c.company_code),
+   (select count(distinct employee_code) from employee where company_code = c.company_code)
+from
+   company c
+order by
+   c.company_code;
 
 /*
 Weather Department Statistics
@@ -47,15 +76,17 @@ select
     country.name,
     avg(humidity) AS average_monthly_humidity, 
     case
-    when avg(temperature) >= 0 and avg(temperature) < 15 then "COLD"
-    when avg(temperature) >= 15 and avg(temperature) < 30 then "WARM"
-    when avg(temperature) >= 30 then "HOT"
+       when avg(temperature) >= 0 and avg(temperature) < 15 then "COLD"
+       when avg(temperature) >= 15 and avg(temperature) < 30 then "WARM"
+       when avg(temperature) >= 30 then "HOT"
     end as weather_type
-from country
-inner join state
-on state.country_id = country.id
-inner join state_weather_stats
-on state.id = state_weather_stats.state_id
-where year(record_date) = 2018 and month(record_date) = 11
-group by state.name, country.name
-order by average_monthly_humidity desc, state.name asc
+from
+   country
+   inner join state on state.country_id = country.id
+   inner join state_weather_stats on state.id = state_weather_stats.state_id
+where
+   year(record_date) = 2018 and month(record_date) = 11
+group by
+   state.name, country.name
+order by
+   average_monthly_humidity desc, state.name asc
