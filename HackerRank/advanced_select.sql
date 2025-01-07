@@ -9,7 +9,6 @@ if(a + b > c and a + c > b and b + c > a,
   'Not A Triangle')
 from triangles
 
-
 /* The PADS
 https://www.hackerrank.com/challenges/the-pads/problem?isFullScreen=true */
 
@@ -56,6 +55,19 @@ from
    company c
 order by
    c.company_code;
+
+/* Binary Tree Nodes
+https://www.hackerrank.com/challenges/binary-search-tree-1/problem?isFullScreen=true */
+
+select
+    n,
+    case
+        when p is NULL then 'Root'
+        when (select count(*) from bst where p = a.n) > 0 then 'Inner'
+        else 'Leaf'
+    end
+    from bst a
+    order by n;
 
 /*
 Weather Department Statistics
