@@ -1,12 +1,3 @@
-/* Big Countries
-A country is big if it has an area of bigger than 3 million square km or a population of more
-than 25 million. Write a SQL solution to output big countries' name, population and area. */
-
-select name, population, area
-from world
-where area > 3000000 or
-population > 25000000
-
 /* Swap Salary
 Write an SQL query to swap all 'f' and 'm' values with a single update statement and no
 intermediate temp table(s). Note that you must write a single update statement, DO NOT write
@@ -80,13 +71,15 @@ left join (
 where b.id is null
 
 /* Rising Temperature
-Write an SQL query to find all dates' id with higher temperature compared to its previous dates
-(yesterday). Return the result table in any order. */
+https://leetcode.com/problems/rising-temperature/description/ */
 
 select a.id
 from weather a, weather b
 where datediff(a.recorddate, b.recorddate) = 1 and
 a.temperature > b.temperature
+
+/* Average Time of Process per Machine
+https://leetcode.com/problems/average-time-of-process-per-machine/description/ */
 
 /* Classes More Than 5 Students
 There is a table courses with columns: student and class. List all classes which have more than
