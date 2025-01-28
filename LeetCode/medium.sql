@@ -15,19 +15,16 @@ inner join manager on employee.id = manager.managerId
 https://leetcode.com/problems/confirmation-rate/description/ */
 
 with confirmed as (
-    select user_id, count(action) as total
+    select user_id,
+    count(action) as total,
+    sum(case when action = 'confirmed' then 1 else 0 end) as total_confirmed
     from confirmations
-    where action = 'confirmed'
     group by user_id
 )
 select
-    s.user_id,
-    coalesce(round(c.total / count(c1.action), 2), 0) as confirmation_rate
-from
-    signups s
-    left join confirmations c1 on s.user_id = c1.user_id
+    s.user_id, coalesce(round(c.total_confirmed / c.total, 2), 0) as confirmation_rate
+    from signups s
     left join confirmed c on s.user_id = c.user_id
-    group by s.user_id
     
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
