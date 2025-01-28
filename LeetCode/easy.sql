@@ -81,6 +81,25 @@ a.temperature > b.temperature
 /* Average Time of Process per Machine
 https://leetcode.com/problems/average-time-of-process-per-machine/description/ */
 
+with start as (
+    select machine_id, process_id, timestamp
+    from activity
+    where activity_type = 'start'),
+end as (
+    select machine_id, process_id, timestamp
+    from activity
+    where activity_type = 'end'
+),
+total as (
+    select start.machine_id, end.timestamp - start.timestamp as time
+    from start
+    inner join end on start.machine_id = end.machine_id
+    and start.process_id = end.process_id
+)
+select machine_id, round(avg(time), 3) as processing_time
+from total
+group by machine_id
+    
 /* Classes More Than 5 Students
 There is a table courses with columns: student and class. List all classes which have more than
 or equal to 5 students. */
