@@ -111,19 +111,6 @@ from
     and su.subject_name = t.subject_name
 order by
     s.student_id, su.subject_name
-
-/* Managers with at Least 5 Direct Reports
-https://leetcode.com/problems/managers-with-at-least-5-direct-reports/description/ */
-
-with manager as(
-    select managerId
-    from employee
-    group by managerId
-    having count(managerId) >= 5
-)
-select name
-from employee
-inner join manager on employee.id = manager.managerId
     
 /* Classes More Than 5 Students
 There is a table courses with columns: student and class. List all classes which have more than
