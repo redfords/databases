@@ -11,6 +11,9 @@ select name
 from employee
 inner join manager on employee.id = manager.managerId
 
+/* Confirmation Rate
+https://leetcode.com/problems/confirmation-rate/description/ */
+    
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
 corresponding seat ids. The column id is continuous increment. Mary wants to change seats for the
