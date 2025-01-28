@@ -1,3 +1,16 @@
+/* Managers with at Least 5 Direct Reports
+https://leetcode.com/problems/managers-with-at-least-5-direct-reports/description/ */
+
+with manager as(
+    select managerId
+    from employee
+    group by managerId
+    having count(managerId) >= 5
+)
+select name
+from employee
+inner join manager on employee.id = manager.managerId
+
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
 corresponding seat ids. The column id is continuous increment. Mary wants to change seats for the
