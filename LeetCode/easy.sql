@@ -93,6 +93,24 @@ where
     and a2.activity_type = 'end'
 group by
     a1.machine_id
+
+/* Students and Examinations
+https://leetcode.com/problems/students-and-examinations/description/ */
+
+with total_exams as (
+    select student_id, subject_name, count(student_id) as total
+    from examinations
+    group by student_id, subject_name
+)
+select
+    s.student_id, s.student_name, su.subject_name, coalesce(t.total, 0) as attended_exams
+from
+    students s
+    join subjects su
+    left join total_exams t on t.student_id = s.student_id
+    and su.subject_name = t.subject_name
+order by
+    s.student_id, su.subject_name
     
 /* Classes More Than 5 Students
 There is a table courses with columns: student and class. List all classes which have more than
