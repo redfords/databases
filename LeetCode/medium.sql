@@ -19,19 +19,15 @@ with confirmed as (
     from confirmations
     where action = 'confirmed'
     group by user_id
-),
-total as (
-    select user_id, count(action) as total
-    from confirmations
-    group by user_id
 )
 select
     s.user_id,
-    coalesce(round(c.total / t.total, 2), 0) as confirmation_rate
+    coalesce(round(c.total / count(c1.action), 2), 0) as confirmation_rate
 from
     signups s
-    left join total t on s.user_id = t.user_id
+    left join confirmations c1 on s.user_id = c1.user_id
     left join confirmed c on s.user_id = c.user_id
+    group by s.user_id
     
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
