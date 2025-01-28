@@ -81,20 +81,13 @@ a.temperature > b.temperature
 /* Average Time of Process per Machine
 https://leetcode.com/problems/average-time-of-process-per-machine/description/ */
 
-with start as (
-    select machine_id, process_id, timestamp
-    from activity
-    where activity_type = 'start'),
-end as (
-    select machine_id, process_id, timestamp
-    from activity
-    where activity_type = 'end'
-),
-total as (
-    select start.machine_id, end.timestamp - start.timestamp as time
-    from start
-    inner join end on start.machine_id = end.machine_id
-    and start.process_id = end.process_id
+with total as (
+    select a1.machine_id, a2.timestamp - a1.timestamp as time
+    from activity a1
+    inner join activity a2 on a1.machine_id = a2.machine_id
+    and a1.process_id = a2.process_id
+    where a1.activity_type = 'start'
+    and a2.activity_type = 'end'
 )
 select machine_id, round(avg(time), 3) as processing_time
 from total
