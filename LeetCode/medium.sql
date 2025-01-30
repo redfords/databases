@@ -21,6 +21,22 @@ from
     signups s
     left join confirmations c on s.user_id = c.user_id
 group by user_id
+
+/* Monthly Transactions I
+https://leetcode.com/problems/monthly-transactions-i/description/ */
+
+select
+    date_format(trans_date, '%Y-%m') as month, 
+    country,
+    count(id) as trans_count,
+    sum(case when state = 'approved' then 1 else 0 end) as approved_count,
+    sum(amount) as trans_total_amount,
+    sum(case when state = 'approved' then amount else 0 end) as approved_total_amount
+from
+    transactions
+group by
+    date_format(trans_date, '%Y-%m'),
+    country
     
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
