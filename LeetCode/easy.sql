@@ -129,3 +129,7 @@ from employee
 where salary < (
     select max(salary)
     from employee)
+
+/* Average Selling Price
+https://leetcode.com/problems/average-selling-price/description/ */
+
