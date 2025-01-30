@@ -166,3 +166,13 @@ select
     round(sum(case when rating < 3 then 1 else 0 end) / count(query_name) * 100, 2) as poor_query_percentage
 from queries
 group by query_name
+
+/* User Activity for the Past 30 Days I
+https://leetcode.com/problems/user-activity-for-the-past-30-days-i/description/ */
+
+select
+    activity_date as day, count(distinct user_id) as active_users
+from activity
+where
+    activity_date between '2019-07-27' - interval 29 day and '2019-07-27'
+group by activity_date
