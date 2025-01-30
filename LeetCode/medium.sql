@@ -76,6 +76,15 @@ from sales s
 inner join first_year fy on s.product_id = fy.product_id
 and s.year = fy.first_year
 
+/* Customers Who Bought All Products
+https://leetcode.com/problems/customers-who-bought-all-products/description/ */
+
+select customer_id
+from customer
+group by customer_id
+having count(distinct product_key) = (
+    select count(product_key) from product)
+
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
 corresponding seat ids. The column id is continuous increment. Mary wants to change seats for the
