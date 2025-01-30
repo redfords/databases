@@ -156,3 +156,21 @@ with total as (
 select contest_id, percentage
 from total
 order by percentage desc, contest_id
+
+/* Queries Quality and Percentage
+https://leetcode.com/problems/queries-quality-and-percentage/description/ */
+
+with query_quality as (
+select query_name, round(sum(rating / position) / count(query_name), 2) as quality
+from queries
+group by query_name
+),
+query_rating as (
+    select query_name,
+    round(sum(case when rating < 3 then 1 else 0 end) / count(query_name) * 100, 2) as total_rating
+    from queries
+    group by query_name
+)
+select q.query_name, q.quality, r.total_rating as poor_query_percentage
+from query_quality q
+inner join query_rating r on q.query_name = r.query_name
