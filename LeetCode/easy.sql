@@ -133,3 +133,20 @@ where salary < (
 /* Average Selling Price
 https://leetcode.com/problems/average-selling-price/description/ */
 
+with price_sold as (
+    select
+        u.product_id, u.units, p.price * u.units as total
+    from
+        unitssold u
+        inner join prices p on u.product_id = p.product_id
+    where
+        u.purchase_date between p.start_date and p.end_date
+)
+select
+    p.product_id,
+    coalesce(round(sum(ps.total) / sum(ps.units), 2), 0) as average_price
+from
+    prices p
+    left join price_sold ps on p.product_id = ps.product_id
+group by p.product_id
+
