@@ -62,7 +62,20 @@ select round(count(f.player_id) / (select count(distinct player_id) from activit
 from first_login f
 inner join activity a on a.player_id = f.player_id
 and datediff(f.first_date, a.event_date) = -1
-    
+
+/* Product Sales Analysis III
+https://leetcode.com/problems/product-sales-analysis-iii/description/ */
+
+with first_year as (
+    select product_id, min(year) as first_year
+    from sales
+    group by product_id
+    )
+select s.product_id, fy.first_year, quantity, price
+from sales s
+inner join first_year fy on s.product_id = fy.product_id
+and s.year = fy.first_year
+
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
 corresponding seat ids. The column id is continuous increment. Mary wants to change seats for the
