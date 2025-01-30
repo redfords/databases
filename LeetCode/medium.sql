@@ -50,6 +50,18 @@ with first_order as (
 select
     round(sum(case when first_order_date = delivery_date then 1 else 0 end) / count(customer_id) * 100, 2) as immediate_percentage
 from first_order
+
+/* Game Play Analysis IV
+https://leetcode.com/problems/game-play-analysis-iv/description/ */
+
+with first_login as
+    (select player_id, min(event_date) as first_date
+    from activity
+    group by player_id)
+select round(count(f.player_id) / (select count(distinct player_id) from activity), 2) as fraction
+from first_login f
+inner join activity a on a.player_id = f.player_id
+and datediff(f.first_date, a.event_date) = -1
     
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
