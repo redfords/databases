@@ -37,6 +37,19 @@ from
 group by
     date_format(trans_date, '%Y-%m'),
     country
+
+/* Immediate Food Delivery II
+https://leetcode.com/problems/immediate-food-delivery-ii/description/ */
+
+with first_order as (
+    select
+        customer_id, min(order_date) as first_order_date, min(customer_pref_delivery_date) as delivery_date
+    from delivery
+    group by customer_id
+)
+select
+    round(sum(case when first_order_date = delivery_date then 1 else 0 end) / count(customer_id) * 100, 2) as immediate_percentage
+from first_order
     
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
