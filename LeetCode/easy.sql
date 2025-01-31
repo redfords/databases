@@ -190,3 +190,15 @@ from
     inner join employees e2 on e1.employee_id = e2.reports_to
 group by e2.reports_to
 order by e2.reports_to
+
+/* Primary Department for Each Employee
+https://leetcode.com/problems/primary-department-for-each-employee/description/ */
+
+select employee_id, department_id
+from employee
+group by employee_id
+having count(department_id) = 1
+union
+select employee_id, department_id
+from employee
+where primary_flag = 'Y'
