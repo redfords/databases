@@ -180,19 +180,13 @@ group by activity_date
 /* The Number of Employees Which Report to Each Employee
 https://leetcode.com/problems/the-number-of-employees-which-report-to-each-employee/description/ */
 
-with manager as (
-    select distinct reports_to as employee_id
-    from employees
-    where reports_to is not NULL
-)
 select
-    m.employee_id,
-    e.name,
+    e2.reports_to as employee_id,
+    e1.name,
     count(e2.reports_to) as reports_count,
     round(avg(e2.age), 0) as average_age
 from
-    manager m
-    inner join employees e on e.employee_id = m.employee_id
-    inner join employees e2 on m.employee_id = e2.reports_to
-group by m.employee_id, e.name
-order by m.employee_id
+    employees e1
+    inner join employees e2 on e1.employee_id = e2.reports_to
+group by e2.reports_to
+order by e2.reports_to
