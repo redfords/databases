@@ -242,44 +242,9 @@ dense_rank() over (order by score desc) as ranking
 from score
 
 /* Consecutive Numbers
-Write an SQL query to find all numbers that appear at least three times consecutively. Return the
-result table in any order.
+https://leetcode.com/problems/consecutive-numbers/description/ */
 
-+-------------+---------+
-| Column Name | Type    |
-+-------------+---------+
-| id          | int     |
-| num         | varchar |
-+-------------+---------+
- 
-The query result format is in the following example:
-
-Logs table:
-+----+-----+
-| Id | Num |
-+----+-----+
-| 1  | 1   |
-| 2  | 1   |
-| 3  | 1   |
-| 4  | 2   |
-| 5  | 1   |
-| 6  | 2   |
-| 7  | 2   |
-+----+-----+
-
-Result table:
-+-----------------+
-| ConsecutiveNums |
-+-----------------+
-| 1               |
-+-----------------+
-
-1 is the only number that appears consecutively for at least three times.
-*/
-
-select distinct 11.Num as ConsecutiveNums from
-Logs as 11, Logs as 12, Logs as 13
-where 11.Num = 12.Num
-and 12.Num = 13.Num
-and 11.Id = 12.Id - 1
-and 12.Id = 13.Id - 1
+select distinct l1.num as ConsecutiveNums
+from logs l1
+inner join logs l2 on l1.num = l2.num and l1.id = l2.id + 1 
+inner join logs l3 on l1.num = l3.num and l1.id = l3.id + 2
