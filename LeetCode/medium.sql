@@ -85,6 +85,23 @@ group by customer_id
 having count(distinct product_key) = (
     select count(product_key) from product)
 
+/* Product Price at a Given Date
+https://leetcode.com/problems/product-price-at-a-given-date/description/ */
+
+select
+    product_id,
+    COALESCE((
+        select new_price
+        from Products p2
+        where p1.product_id = p2.product_id
+            and p2.change_date <= '2019-08-16'
+        order by p2.change_date desc
+        limit 1
+    ), 10) as price
+from (
+    select distinct product_id
+    from Products) p1;
+
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
 corresponding seat ids. The column id is continuous increment. Mary wants to change seats for the
