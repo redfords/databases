@@ -105,17 +105,17 @@ from (
 /* Last Person to Fit in the Bus
 https://leetcode.com/problems/last-person-to-fit-in-the-bus/description/ */
 
-with acc_weight as (
-SELECT person_id, weight,		
-SUM(weight) OVER(
-	ORDER BY turn	
-	ROWS BETWEEN UNBOUNDED PRECEDING	
-	AND CURRENT ROW) AS runval	
-FROM queue
+with cumu_weight as (
+select person_name, weight,		
+sum(weight) over(
+	order by turn	
+	rows between UNBOUNDED PRECEDING	
+	and current row) as runval	
+from queue
 )
-select person_id
-from acc_weight
-where runval = 1000
+select person_name
+from cumu_weight
+where runval = (select max(runval) from cumu_weight where runval <= 1000)
 
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
