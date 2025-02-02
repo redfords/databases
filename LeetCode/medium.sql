@@ -120,21 +120,20 @@ where runval = (select max(runval) from cumu_weight where runval <= 1000)
 /* Count Salary Categories
 https://leetcode.com/problems/count-salary-categories/description/ */
 
-with categories as (
-select 'Low Salary' as category
-union select 'Average Salary' union select 'High Salary'
-),
-acc_cat as (
 select
-account_id,
-case when income < 20000 then 'Low Salary' when income between 20000 and 50000 then 'Average Salary'
-else 'High Salary' end as category
-from accounts
-)
-select c.category, count(a.account_id) as accounts_count
-from categories c
-left join acc_cat a on c.category = a.category
-group by c.category
+    'Low Salary' as category,
+    coalesce(sum(income < 20000), 0) as accounts_count
+from Accounts
+union
+select
+    'Average Salary' as category,
+    coalesce(sum(income between 20000 and 50000), 0) as accounts_count
+from Accounts
+union
+select
+    'High Salary' as category,
+    coalesce(sum(income > 50000), 0) as accounts_count
+from Accounts
 	
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
