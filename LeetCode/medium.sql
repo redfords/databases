@@ -102,6 +102,11 @@ from (
     select distinct product_id
     from Products) p1;
 
+/* Last Person to Fit in the Bus
+https://leetcode.com/problems/last-person-to-fit-in-the-bus/description/ */
+
+
+
 /* Exchange Seats
 Mary is a teacher in a middle school and she has a table seat storing students' names and their
 corresponding seat ids. The column id is continuous increment. Mary wants to change seats for the
