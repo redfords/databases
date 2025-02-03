@@ -137,14 +137,13 @@ from Accounts
 	
 /* Exchange Seats
 https://leetcode.com/problems/exchange-seats/description/ */
-
+	
 select
 case
-    when id % 2 = 1 and id = (select max(id) from seat) then id
-    when id % 2 = 1 and id <> (select max(id) from seat) then (id + 1)
-    when id % 2 = 0 then (id - 1)
-end as id,
-student
+    when id % 2 != 0 then case
+        when id = (select max(id) from seat) then id else id + 1 end
+    when id % 2 = 0 then id - 1 end as id,
+    student
 from seat
 order by id
 
