@@ -147,23 +147,29 @@ case
 from seat
 order by id
 
-Movie Rating /*
+/* Movie Rating
 https://leetcode.com/problems/movie-rating/description/ */
 
-(select u.name as results
-from users u
-inner join movierating mr on u.user_id = mr.user_id
-group by u.name
-order by count(mr.movie_id) desc, u.name
-limit 1)
+(
+    select u.name as results
+    from
+	users u
+    	inner join movierating mr on u.user_id = mr.user_id
+    group by u.name
+    order by count(mr.movie_id) desc, u.name
+    limit 1
+)
 union all
-(select m.title
-from movies m
-inner join movierating mr on m.movie_id = mr.movie_id
-where date_format(mr.created_at, '%Y-%m') = '2020-02'
-group by m.title
-order by avg(mr.rating) desc, m.title
-limit 1)
+(
+    select m.title
+    from
+	movies m
+    	inner join movierating mr on m.movie_id = mr.movie_id
+    where date_format(mr.created_at, '%Y-%m') = '2020-02'
+    group by m.title
+    order by avg(mr.rating) desc, m.title
+    limit 1
+)
 	
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
