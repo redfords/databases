@@ -195,19 +195,17 @@ where
 /* Friend Requests II: Who Has the Most Friends
 https://leetcode.com/problems/friend-requests-ii-who-has-the-most-friends/description/ */
 
-with total_friends as (
-    select requester_id as id, count(accepter_id) as num_of_friends
+with friends as (
+    select requester_id as id
     from requestaccepted
-    group by requester_id
     union all
-    select accepter_id, count(requester_id)
+    select accepter_id
     from requestaccepted
-    group by accepter_id
 )
-select id, sum(num_of_friends) as num
-from total_friends
+select id, count(id) as num
+from friends
 group by id
-order by sum(num_of_friends) desc
+order by count(id) desc
 limit 1
 	
 /* Department Highest Salary
