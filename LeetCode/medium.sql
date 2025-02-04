@@ -224,7 +224,21 @@ from
     insurance i
     inner join dif_city c on c.pid = i.pid and c.city = 1
     inner join same_tiv t on t.pid = i.pid and t.tiv > 1
-	
+
+/* Department Top Three Salaries
+https://leetcode.com/problems/department-top-three-salaries/description/ */
+
+with highest_salary as (
+select salary, departmentid,
+row_number() over(partition by departmentid order by salary desc) as row_num
+from (select distinct salary, departmentid from employee) e
+)
+select d.name as Department, e.name as Employee, e.salary as Salary
+from employee e
+inner join department d on d.id = e.departmentid
+inner join highest_salary h on e.salary = h.salary
+and row_num <= 3
+
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
 for the department Id.
