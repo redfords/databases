@@ -222,9 +222,8 @@ same_tiv as (
 select round(sum(tiv_2016), 2) as tiv_2016
 from
     insurance i
-    inner join dif_city c on c.pid = i.pid
-    inner join same_tiv t on t.pid = i.pid
-where c.city = 1 and t.tiv > 1
+    inner join dif_city c on c.pid = i.pid and c.city = 1
+    inner join same_tiv t on t.pid = i.pid and t.tiv > 1
 	
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
