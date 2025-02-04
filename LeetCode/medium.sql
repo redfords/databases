@@ -191,6 +191,24 @@ from
     total_amount
 where
     datediff(visited_on, (select min(visited_on) from day_amount)) >= 6
+
+/* Friend Requests II: Who Has the Most Friends
+https://leetcode.com/problems/friend-requests-ii-who-has-the-most-friends/description/ */
+
+with total_friends as (
+    select requester_id as id, count(accepter_id) as num_of_friends
+    from requestaccepted
+    group by requester_id
+    union all
+    select accepter_id, count(requester_id)
+    from requestaccepted
+    group by accepter_id
+)
+select id, sum(num_of_friends) as num
+from total_friends
+group by id
+order by sum(num_of_friends) desc
+limit 1
 	
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
