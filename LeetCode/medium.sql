@@ -174,15 +174,23 @@ union all
 /* Restaurant Growth
 https://leetcode.com/problems/restaurant-growth/description/ */
 
-SELECT visited_on,amount,round(average_amount,2)average_amount
-from 
-	(select 
-		visited_on, 
-	 sum(amount) over (order by visited_on rows 6 preceding) amount,
-	 avg(amount) over (order by visited_on rows 6 preceding) average_amount
-	from (select visited_on, sum(amount) amount from Customer GROUP BY visited_on) a
-	) b
-where DATEDIFF(visited_on,(SELECT min(visited_on) from Customer)) >= 6
+with day_amount as (
+    select visited_on, sum(amount) as amount
+    from customer
+    group by visited_on
+),
+total_amount as (
+    select visited_on, 
+    sum(amount) over (order by visited_on rows 6 preceding) as amount,
+    avg(amount) over (order by visited_on rows 6 preceding) as average_amount
+    from day_amount
+)
+select 
+    visited_on, amount, round(average_amount, 2) as average_amount
+from
+    total_amount
+where
+    datediff(visited_on, (select min(visited_on) from day_amount)) >= 6
 	
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
