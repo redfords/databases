@@ -222,3 +222,11 @@ select
     concat(upper(substr(name, 1, 1)), lower(substr(name, 2))) as name
 from users
 order by user_id
+
+/* Delete Duplicate Emails
+https://leetcode.com/problems/delete-duplicate-emails/description/ */
+
+delete p1
+from person p1, person p2
+where p1.email = p2.email
+and p1.id > p2.id
