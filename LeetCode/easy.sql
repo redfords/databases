@@ -60,15 +60,10 @@ where id not in (
 Write a SQL query to delete all duplicate email entries in a table named Person, keeping
 only unique emails based on its smallest Id. */
 
-delete a
-from person a
-left join (
-    select min(id) id, email
-    from person
-    group by email)
-    b on a.id = b.id and
-    a.email = b.email
-where b.id is null
+delete p1
+from person p1, person p2
+where p1.email = p2.email
+and p1.id > p2.id
 
 /* Rising Temperature
 https://leetcode.com/problems/rising-temperature/description/ */
