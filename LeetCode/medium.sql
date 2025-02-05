@@ -257,6 +257,14 @@ select ifnull(
     (select salary from salary_num where num = 2 limit 1), NULL)
 as SecondHighestSalary;
 
+with salary_num as (
+    select max(salary) as salary
+    from employee
+    where salary < (select max(salary) from employee)
+    )
+select ifnull (
+    (select salary from salary_num limit 1), NULL) as SecondHighestSalary
+	
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
 for the department Id.
