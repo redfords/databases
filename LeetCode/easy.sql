@@ -248,3 +248,19 @@ where
     date_format(order_date, '%Y-%m') = '2020-02'
 group by product_name
 having sum(unit) >= 100
+
+/* 1517. Find Users With Valid E-Mails
+https://leetcode.com/problems/find-users-with-valid-e-mails/description/ */
+
+select user_id, name, mail
+from users
+where mail rlike '^[A-Za-z]+[A-Za-z0-9\.\_\-]*@leetcode[\.]com$'
+
+# ^ means the beginning of the string
+# [] means character set. [A-Z] means any upper case chars
+# - means range
+# notation: + or *
+#    + means at least one of the character from the preceding charset, and * means 0 or more
+# \ inside the charset mean skipping. \. means we want the dot as 
+#    for example: if we would like to find - itself as a character? use \-. 
+# @ refers to exact match
