@@ -235,3 +235,16 @@ select
 from Activities
 group by sell_date
 order by sell_date
+
+/* 1327. List the Products Ordered in a Period
+https://leetcode.com/problems/list-the-products-ordered-in-a-period/description/ */
+select
+    product_name,
+    sum(unit) as unit
+from
+    orders o
+    inner join products p on o.product_id = p.product_id
+where
+    date_format(order_date, '%Y-%m') = '2020-02'
+group by product_name
+having sum(unit) >= 100
