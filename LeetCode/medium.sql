@@ -245,6 +245,18 @@ from
         and e.departmentid = h.departmentid
         and row_num <= 3
 
+/* 176. Second Highest Salary
+https://leetcode.com/problems/second-highest-salary/description/ */
+
+with salary_num as (
+    select salary,
+    dense_rank() over(order by salary desc) as num
+    from employee
+    )
+select ifnull(
+    (select salary from salary_num where num = 2 limit 1), NULL)
+as SecondHighestSalary;
+
 /* Department Highest Salary
 The Employee table holds all employees. Every employee has an Id, a salary, and there is also a column
 for the department Id.
