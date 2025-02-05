@@ -225,3 +225,13 @@ delete p1
 from person p1, person p2
 where p1.email = p2.email
 and p1.id > p2.id
+
+/* 1484. Group Sold Products By The Date
+https://leetcode.com/problems/group-sold-products-by-the-date/description/ */
+
+select
+    sell_date, COUNT(DISTINCT product) as num_sold, 
+    group_concat(DISTINCT product) as products 
+from Activities
+group by sell_date
+order by sell_date
