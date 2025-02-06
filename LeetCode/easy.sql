@@ -65,6 +65,16 @@ from person p1, person p2
 where p1.email = p2.email
 and p1.id > p2.id
 
+# 1407. Top Travellers
+# https://leetcode.com/problems/top-travellers/description/
+
+select name, coalesce(sum(distance), 0) as travelled_distance
+from
+    users u
+    left join rides r on u.id = r.user_id
+group by u.id
+order by sum(distance) desc, name
+
 /* Rising Temperature
 https://leetcode.com/problems/rising-temperature/description/ */
 
