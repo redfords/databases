@@ -162,6 +162,33 @@ from id
 group by employee_id
 having count(employee_id) = 1
 order by employee_id
+
+# 1084. Sales Analysis III
+# https://leetcode.com/problems/sales-analysis-iii/description/
+
+select
+    p.product_id, p.product_name
+from
+    product p
+    inner join sales s on p.product_id = s.product_id
+group by
+    p.product_id, p.product_name
+having
+    min(s.sale_date) >= '2019-01-01'
+    and max(s.sale_date) <= '2019-03-31'
+    
+select
+    distinct p.product_id, p.product_name
+from
+    product p
+    inner join sales s on p.product_id = s.product_id
+where
+    s.sale_date between '2019-01-01' and '2019-03-31'
+    and p.product_id not in (
+        select product_id
+        from sales
+        where sale_date < '2019-01-01' or sale_date > '2019-03-31'
+    )
     
 /* Second Highest Salary
 Write a SQL query to get the second highest salary from the Employee table. */
