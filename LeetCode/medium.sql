@@ -323,13 +323,17 @@ where rownum = 1
 # 177. Nth Highest Salary
 # https://leetcode.com/problems/nth-highest-salary/description/
 
-create function getNthHighestSalary(n int) returns int
-begin
-    set n = n - 1
-    return (
-        select distinct Salary from Employee order by Salary desc limit 1 offset n
-    );
-end
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+  RETURN (
+      # Write your MySQL query statement below.
+    select salary from (
+        select Salary, dense_rank() over (order by Salary desc) as r
+        from Employee) a
+    where r = n
+    limit 1
+  );
+END
 
 /*  Rank Scores
 Write a SQL query to rank scores. If there is a tie between two scores, both should have the same
