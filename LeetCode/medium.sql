@@ -320,25 +320,8 @@ from (
     employee.departmentid = department.id) dept_salary
 where rownum = 1
 
-/* Nth Highest Salary
-Write a SQL query to get the nth highest salary from the Employee table.
-
-+----+--------+
-| Id | Salary |
-+----+--------+
-| 1  | 100    |
-| 2  | 200    |
-| 3  | 300    |
-+----+--------+
-
-For example, given the above Employee table, the nth highest salary where n = 2 is 200. If there is no
-nth highest salary, then the query should return null.
-+------------------------+
-| getNthHighestSalary(2) |
-+------------------------+
-| 200                    |
-+------------------------+
-*/
+# 177. Nth Highest Salary
+# https://leetcode.com/problems/nth-highest-salary/description/
 
 create function getNthHighestSalary(n int) returns int
 begin
@@ -347,7 +330,6 @@ begin
         select distinct Salary from Employee order by Salary desc limit 1 offset n
     );
 end
-
 
 /*  Rank Scores
 Write a SQL query to rank scores. If there is a tie between two scores, both should have the same
