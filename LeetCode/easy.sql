@@ -35,6 +35,18 @@ from orders
 group by customer_number
 order by count(order_number) desc
 limit 1
+
+# 607. Sales Person
+# https://leetcode.com/problems/sales-person/description/
+
+select name
+from salesperson
+where sales_id not in (
+    select sales_id
+    from orders o
+    inner join company c on o.com_id = c.com_id
+    where c.name = 'RED'
+)
     
 /* Combine two tables
 Write a SQL query that provides the following information for each person in the Person table,
