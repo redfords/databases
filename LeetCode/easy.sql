@@ -126,6 +126,22 @@ from courses
 group by class
 having count(distinct student) > 4
 
+# 1965. Employees With Missing Information
+# https://leetcode.com/problems/employees-with-missing-information/description/
+
+with id as (
+    select employee_id
+    from employees
+    union all
+    select employee_id
+    from salaries
+)
+select employee_id
+from id
+group by employee_id
+having count(employee_id) = 1
+order by employee_id
+    
 /* Second Highest Salary
 Write a SQL query to get the second highest salary from the Employee table. */
 
