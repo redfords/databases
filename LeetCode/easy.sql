@@ -27,6 +27,15 @@ from person
 group by email
 having count(*) > 1
 
+# 586. Customer Placing the Largest Number of Orders
+# https://leetcode.com/problems/customer-placing-the-largest-number-of-orders/description/
+
+select customer_number
+from orders 
+group by customer_number
+order by count(order_number) desc
+limit 1
+    
 /* Combine two tables
 Write a SQL query that provides the following information for each person in the Person table,
 regardless if there is an address for each of those people: FirstName, LastName, City, State */
