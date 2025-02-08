@@ -31,6 +31,14 @@ when id not in (select p_id from tree where p_id is not NULL) then 'Leaf'
 else 'Inner' end as type
 from tree
 
+# 1393. Capital Gain/Loss
+# https://leetcode.com/problems/capital-gainloss/description/
+
+select stock_name,
+sum(case when operation = 'Sell' then price else -price end) as capital_gain_loss
+from stocks
+group by stock_name
+	
 /* Monthly Transactions I
 https://leetcode.com/problems/monthly-transactions-i/description/ */
 
