@@ -163,6 +163,21 @@ group by employee_id
 having count(employee_id) = 1
 order by employee_id
 
+# 1795. Rearrange Products Table
+# https://leetcode.com/problems/rearrange-products-table/
+    
+select product_id, 'store1' as store, store1 as price
+from products
+where store1 is not NULL
+union
+select product_id, 'store2' as store, store2 as price
+from products
+where store2 is not NULL
+union
+select product_id, 'store3' as store, store3 as price
+from products
+where store3 is not NULL
+    
 # 1084. Sales Analysis III
 # https://leetcode.com/problems/sales-analysis-iii/description/
 
