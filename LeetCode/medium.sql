@@ -60,6 +60,13 @@ select
     round(sum(case when first_order_date = delivery_date then 1 else 0 end) / count(customer_id) * 100, 2) as immediate_percentage
 from first_order
 
+# 178. Rank Scores
+# https://leetcode.com/problems/rank-scores/description/
+
+select score,
+dense_rank() over(order by score desc) as 'rank'
+from scores
+
 /* Game Play Analysis IV
 https://leetcode.com/problems/game-play-analysis-iv/description/ */
 
