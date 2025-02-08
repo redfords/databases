@@ -147,6 +147,22 @@ from courses
 group by class
 having count(distinct student) > 4
 
+# 1873. Calculate Special Bonus
+# https://leetcode.com/problems/calculate-special-bonus/description/
+    
+select employee_id,
+case when employee_id % 2 = 0 or substr(name, 1, 1) = 'M' then 0 else salary end as bonus
+from employees
+order by employee_id
+    
+# 1890. The Latest Login in 2020
+# https://leetcode.com/problems/the-latest-login-in-2020/description/
+
+select user_id, max(time_stamp) as last_stamp
+from logins
+where date_format(time_stamp, '%Y') = '2020'
+group by user_id
+
 # 1965. Employees With Missing Information
 # https://leetcode.com/problems/employees-with-missing-information/description/
 
