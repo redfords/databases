@@ -133,6 +133,20 @@ select person_name
 from cumu_weight
 where runval = (select max(runval) from cumu_weight where runval <= 1000)
 
+# 1158. Market Analysis I
+# https://leetcode.com/problems/market-analysis-i/description/
+
+select
+    user_id as buyer_id,
+    join_date,
+    count(order_id) as orders_in_2019
+from
+    users u
+    left join orders o on u.user_id = o.buyer_id
+    and date_format(order_date, '%Y') = '2019'
+group by
+    user_id
+	
 /* Count Salary Categories
 https://leetcode.com/problems/count-salary-categories/description/ */
 
