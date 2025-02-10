@@ -42,5 +42,10 @@ where group_id in (
 order by visit_date;
 
 # 262. Trips and Users
-# https://leetcode.com/problems/trips-and-users/description/?envType=problem-list-v2&envId=m8baczxh
+# https://leetcode.com/problems/trips-and-users/description/
+
+select users_id, role, request_at as Day
+from users
+inner join trips on users_id = client_id
+where banned = 'No'
 
