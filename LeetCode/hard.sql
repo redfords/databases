@@ -44,10 +44,26 @@ order by visit_date;
 # 262. Trips and Users
 # https://leetcode.com/problems/trips-and-users/description/
 
-select request_at, count(id) as total
-    from trips
-    inner join users u1 on u1.users_id = client_id and u1.banned = 'No'
-inner join users u2 on u2.users_id = driver_id and u2.banned = 'No'
-where status = 'cancelled_by_driver' or status = 'cancelled_by_client'
-and request_at between '2013-10-01' and '2013-10-03'
-group by request_at
+with cancelled as (
+    select
+        request_at,
+        count(id) as total
+    from
+        trips
+        inner join users u1 on u1.users_id = client_id and u1.banned = 'No'
+        inner join users u2 on u2.users_id = driver_id and u2.banned = 'No'
+    where
+        status = 'cancelled_by_driver' or status = 'cancelled_by_client'
+        and request_at between '2013-10-01' and '2013-10-03'
+    group by request_at
+)
+select
+    t.request_at as Day,
+    round(coalesce(c.total, 0) / count(t.id), 2) as 'Cancellation Rate'
+from
+    trips t
+    inner join users u1 on u1.users_id = t.client_id and u1.banned = 'No'
+    inner join users u2 on u2.users_id = t.driver_id and u2.banned = 'No'
+    and t.request_at between '2013-10-01' and '2013-10-03'
+    left join cancelled c on t.request_at = c.request_at
+group by t.request_at
