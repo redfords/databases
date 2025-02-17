@@ -8,6 +8,9 @@ group by product_id
 order by sum(units_sold * cost_in_dollars) desc
 limit 5
 
-# April Admin Employees
-# https://platform.stratascratch.com/coding/9845-find-the-number-of-employees-working-in-the-admin-department?code_type=1
+# Customer Details
+# https://platform.stratascratch.com/coding/9891-customer-details?code_type=1
 
+select first_name, last_name, city, order_details
+from customers c
+left join orders o on c.id = o.cust_id
