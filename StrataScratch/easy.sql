@@ -33,3 +33,15 @@ from
 group by
   client_id,
   extract(month from time_id)
+
+# Order Details
+# https://platform.stratascratch.com/coding/9913-order-details?code_type=1
+
+select
+  order_date, order_details, total_order_cost, first_name
+from
+  customers c
+  inner join orders o on o.cust_id = c.id
+where
+  first_name in ('Jill', 'Eva')
+order by c.id
