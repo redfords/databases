@@ -45,3 +45,17 @@ from
 where
   first_name in ('Jill', 'Eva')
 order by c.id
+
+# Average Salaries
+# https://platform.stratascratch.com/coding/9917-average-salaries?code_type=1
+
+with dept as (
+    select department, avg(salary) as avg_salary
+    from employee
+    group by department
+)
+select
+  e.department, e.first_name, e.salary, d.avg_salary
+from
+  employee e
+  inner join dept d on e.department = d.department
