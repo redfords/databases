@@ -59,3 +59,7 @@ select
 from
   employee e
   inner join dept d on e.department = d.department
+
+# Salaries Differences
+# https://platform.stratascratch.com/coding/10308-salaries-differences?code_type=1
+
