@@ -62,12 +62,11 @@ from
 
 # Salaries Differences
 # https://platform.stratascratch.com/coding/10308-salaries-differences?code_type=1
-select abs(max(salary) - (
-    select max(salary)
-    from db_employee e
-    inner join db_dept d on e.department_id = d.id
-    where department = 'marketing'
-))
+  
+select abs(
+  max(case when department = 'engineering' then salary else 0 end) -
+  max(case when department = 'marketing' then salary else 0 end)
+)
 from db_employee e
 inner join db_dept d on e.department_id = d.id
-where department = 'engineering'
+where department in ('engineering', 'marketing')
