@@ -70,3 +70,7 @@ select abs(
 from db_employee e
 inner join db_dept d on e.department_id = d.id
 where department in ('engineering', 'marketing')
+
+# Number of violations
+# https://platform.stratascratch.com/coding/9728-inspections-that-resulted-in-violations?code_type=1
+
