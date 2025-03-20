@@ -74,9 +74,14 @@ where department in ('engineering', 'marketing')
 # Number of violations
 # https://platform.stratascratch.com/coding/9728-inspections-that-resulted-in-violations?code_type=1
 
-select date_part('year', inspection_date) as year, count(violation_id) as total_violations
-from sf_restaurant_health_violations
-where violation_id is not NULL
-and business_name = 'Roxanne Cafe'
-group by date_part('year', inspection_date)
+select
+  date_part('year', inspection_date) as year,
+  count(violation_id) as total_violations
+from
+  sf_restaurant_health_violations
+where
+  violation_id is not NULL
+  and business_name = 'Roxanne Cafe'
+group by
+  date_part('year', inspection_date)
 
