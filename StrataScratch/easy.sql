@@ -94,3 +94,6 @@ from
   facebook_employees
   inner join facebook_hack_survey on id = employee_id
 group by location
+
+# Finding Updated Records
+# https://platform.stratascratch.com/coding/10299-finding-updated-records?code_type=1
