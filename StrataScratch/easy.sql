@@ -85,3 +85,12 @@ where
 group by
   date_part('year', inspection_date)
 
+# Popularity of Hack
+# https://platform.stratascratch.com/coding/10061-popularity-of-hack?code_type=1
+
+select
+  location, avg(popularity) as avg_popularity
+from
+  facebook_employees
+  inner join facebook_hack_survey on id = employee_id
+group by location
