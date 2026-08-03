@@ -27,7 +27,7 @@ Delete based on filter. Truncate deletes all rows with no filter. Truncate is mi
 				
 Truncate drops the table then re-creates it. Truncate is not available when the table is referenced by a foreign key constraint
 
-"" Row store databases vs. columnar store databases
+## Row store databases vs. columnar store databases
 
 Transactional databases are designed to be efficient at processing transactions (insert, update and delete) ex. MySQL and Postgres.
 Through careful tuning and schema design, they can be used for analytics. 
