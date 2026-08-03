@@ -22,7 +22,7 @@ ETL the process that pulls data from sources (OLTP and others) and loads it into
 Order clauses are logically processed:				
 1. from 2. where 3. group by 4. having 5. select 6. order by				
 				
-## Data modification				
+## Truncate vs. delete				
 Delete based on filter. Truncate deletes all rows with no filter. Truncate is minimally logged, delete logs every deleted record.				
 				
 Truncate drops the table then re-creates it. Truncate is not available when the table is referenced by a foreign key constraint
