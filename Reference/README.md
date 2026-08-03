@@ -27,8 +27,7 @@ Delete based on filter. Truncate deletes all rows with no filter. Truncate is mi
 				
 Truncate drops the table then re-creates it. Truncate is not available when the table is referenced by a foreign key constraint
 
-## Row store databases vs. columnar store databases
-
+## Row store databases
 Transactional databases are designed to be efficient at processing transactions (insert, update and delete) ex. MySQL and Postgres.
 Through careful tuning and schema design, they can be used for analytics. 
 
@@ -37,6 +36,7 @@ We think of a table as rows and columns, but data has to be serialized for stora
 Row-store databases serializes data in a row. When querying, the whole row is read into memory. This approach is fast when making row-wise updates, but it's slower when making calculations accross many
 rows if only a few columns are needed. To reduce the width of tables, row-store databases are usually modeled in third normal form.
 
+## Columnar store databases
 Column store databases store the values of a column together, rather than storing the values of a row together. This design is optimized for queries that read many records but not necessarily all the columns.
 Popular column-store databases include Amazon Redshift and Snowflake.
 
