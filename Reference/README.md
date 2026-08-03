@@ -16,9 +16,7 @@ Star schema: the simplest dw design. Dimension tables and fact table.
 Data mart: only part of the organization or a subject matter area.	
 
 Intentional redundancy, fewer tables and simpler relationships, more efficient queries.
-				
-ETL the process that pulls data from sources (OLTP and others) and loads it into the dw. Data staging area DSA is data cleansing between OLTP and DW.			
-			
+
 Order clauses are logically processed:				
 1. from 2. where 3. group by 4. having 5. select 6. order by				
 				
